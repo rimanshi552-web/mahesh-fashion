@@ -98,68 +98,11 @@ footer{background:#111;color:white;text-align:center;padding:20px}
 
 <script>
 function order(product,price){
-<!-- UPI PAYMENT BUTTON -->
-<section style="text-align:center;padding:20px;">
-  <h2>💰 Pay Online</h2>
-  <p>UPI ID: maheshwait@ybl</p>
-
-  <a href="upi://pay?pa=maheshwait@ybl&pn=Mahesh%20Fashion&cu=INR"
-     style="display:inline-block;background:green;color:white;
-     padding:12px 25px;text-decoration:none;border-radius:8px;">
-     Pay Now with UPI
-  </a>
-</section>
-
-<!-- PRODUCT CATALOGUE -->
-<section id="catalogue" style="padding:20px;text-align:center;">
-  <h2>Our Product Catalogue</h2>
-  <p>अपनी पसंद का कपड़ा चुनें और WhatsApp पर ऑर्डर करें।</p>
-
-  <div style="border:1px solid #ddd;padding:15px;margin:10px;">
-    <img src="https://placehold.co/300x300?text=Mens+T-Shirt"
-         alt="Men's T-Shirt" style="width:180px;max-width:100%;">
-    <h3>Men's T-Shirt</h3>
-    <p>Price: ₹299</p>
-    <button onclick="order('Men T-Shirt',299)">
-      WhatsApp पर ऑर्डर करें
-    </button>
-    <br><br>
-    <a href="upi://pay?pa=maheshwait@ybl&pn=Mahesh%20Fashion&am=299&cu=INR">
-      ₹299 Pay करें
-    </a>
-  </div>
-
-  <div style="border:1px solid #ddd;padding:15px;margin:10px;">
-    <img src="https://placehold.co/300x300?text=Fashion+Shirt"
-         alt="Fashion Shirt" style="width:180px;max-width:100%;">
-    <h3>Fashion Shirt</h3>
-    <p>Price: ₹499</p>
-    <button onclick="order('Fashion Shirt',499)">
-      WhatsApp पर ऑर्डर करें
-    </button>
-    <br><br>
-    <a href="upi://pay?pa=maheshwait@ybl&pn=Mahesh%20Fashion&am=499&cu=INR">
-      ₹499 Pay करें
-    </a>
-  </div>
-
-  <div style="border:1px solid #ddd;padding:15px;margin:10px;">
-    <img src="https://placehold.co/300x300?text=Kids+Wear"
-         alt="Kids Wear" style="width:180px;max-width:100%;">
-    <h3>Kids Wear</h3>
-    <p>Price: ₹249</p>
-    <button onclick="order('Kids Wear',249)">
-      WhatsApp पर ऑर्डर करें
-    </button>
-    <br><br>
-    <a href="upi://pay?pa=maheshwait@ybl&pn=Mahesh%20Fashion&am=249&cu=INR">
-      ₹249 Pay करें
-    </a>
-  </div>
-</section>
-let message="नमस्ते Mahesh Fashion, मुझे "+product+" ऑर्डर करना है। कीमत ₹"+price+" है।";
+var phone="7667769251";
+var message="Namaste Mahesh Fashion, mujhe "+product+" order karna hai. Kimat ₹"+price+" hai.";
 window.open("https://wa.me/"+phone+"?text="+encodeURIComponent(message),"_blank");
 }
+</script>
 </script>
 
 </body>
