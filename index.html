@@ -97,11 +97,45 @@ footer{background:#111;color:white;text-align:center;padding:20px}
 </footer>
 
 <script>
-function order(product,price){
-var phone="7667769251";
-var message="Namaste Mahesh Fashion, mujhe "+product+" order karna hai. Kimat ₹"+price+" hai.";
-window.open("https://wa.me/"+phone+"?text="+encodeURIComponent(message),"_blank");
+function order(product, price) {
+  var phone = "7667769251";
+  var message = "Namaste Mahesh Fashion, mujhe " +
+    product + " order karna hai. Kimat ₹" + price + " hai.";
+
+  window.open(
+    "https://wa.me/" + phone +
+    "?text=" + encodeURIComponent(message),
+    "_blank"
+  );
 }
+
+document.querySelectorAll(".card").forEach(function(card) {
+  var priceText = card.querySelector(".price");
+  var orderButton = card.querySelector("button");
+
+  if (!priceText || !orderButton) return;
+
+  var price = priceText.textContent.match(/\d+/);
+  if (!price) return;
+
+  var product = card.querySelector("h3").textContent;
+
+  var payButton = document.createElement("a");
+  payButton.textContent = "Pay via UPI";
+  payButton.href =
+    "upi://pay?pa=maheshwait%40ybl" +
+    "&pn=Mahesh%20Fashion" +
+    "&am=" + price[0] +
+    "&cu=INR" +
+    "&tn=" + encodeURIComponent(product);
+
+  payButton.style.cssText =
+    "display:block;background:#138808;color:white;" +
+    "padding:12px;margin-top:8px;border-radius:5px;" +
+    "text-align:center;text-decoration:none;font-weight:bold;";
+
+  card.appendChild(payButton);
+});
 </script>
 </script>
 
