@@ -138,6 +138,149 @@ document.querySelectorAll(".card").forEach(function(card) {
 });
 </script>
 </script>
+<!-- CATALOGUE UPLOAD -->
+<section style="padding:20px;background:#f4f4f4;margin:20px 0;border-radius:10px;">
+  <h2>📦 Upload New Product</h2>
 
+  <input
+    type="text"
+    id="productName"
+    placeholder="Product Name"
+    style="display:block;width:95%;padding:10px;margin:10px 0;"
+  >
+
+  <input
+    type="number"
+    id="productPrice"
+    placeholder="Price in ₹"
+    style="display:block;width:95%;padding:10px;margin:10px 0;"
+  >
+
+  <input
+    type="file"
+    id="productImage"
+    accept="image/*"
+    style="display:block;margin:10px 0;"
+  >
+
+  <button
+    onclick="uploadProduct()"
+    style="padding:12px 20px;background:green;color:white;border:0;border-radius:5px;"
+  >
+    Upload Product
+  </button>
+
+  <p id="uploadMessage"></p>
+</section>
+
+<section style="padding:20px;">
+  <h2>👕 Our Catalogue</h2>
+  <div id="newProducts"
+       style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:15px;">
+  </div>
+</section>
+
+<script>
+function uploadProduct() {
+  const name = document.getElementById("productName").value.trim();
+  const price = document.getElementById("productPrice").value;
+  const file = document.getElementById("productImage").files[0];
+  const message = document.getElementById("uploadMessage");
+
+  if (!name || !price || Number(price) <= 0 || !file) {
+    message.textContent = "Naam, sahi price aur photo bharo.";
+    return;
+  }
+
+  if (!file.type.startsWith("image/")) {
+    message.textContent = "Sirf image select karo.";
+    return;
+  }
+
+  if (file.size > 2 * 1024 * 1024) {
+    message.textContent = "Photo 2 MB se chhoti honi chahiye.";
+    return;
+  }
+
+  const reader = new FileReader();
+
+  reader.onload = function(event) {
+    const product = {
+      name: name,
+      price: Number(price),
+      image: event.target.result
+    };
+
+    let products = [];
+
+    try {
+      products = JSON.parse(
+        localStorage.getItem("maheshFashionProducts") || "[]"
+      );
+    } catch (error) {
+      message.textContent = "Product data read nahi ho saka.";
+      return;
+    }
+
+    products.push(product);
+
+    try {
+      localStorage.setItem(
+        "maheshFashionProducts",
+        JSON.stringify(products)
+      );
+    } catch (error) {
+      message.textContent = "Storage full hai. Chhoti photo try karo.";
+      return;
+    }
+
+    showProducts();
+    message.textContent = "Product is browser mein save ho gaya!";
+    document.getElementById("productName").value = "";
+    document.getElementById("productPrice").value = "";
+    document.getElementById("productImage").value = "";
+  };
+
+  reader.readAsDataURL(file);
+}
+
+function showProducts() {
+  const container = document.getElementById("newProducts");
+  let products = [];
+
+  try {
+    products = JSON.parse(
+      localStorage.getItem("maheshFashionProducts") || "[]"
+    );
+  } catch (error) {
+    container.textContent = "Catalogue load nahi hua.";
+    return;
+  }
+
+  container.replaceChildren();
+
+  products.forEach(function(product) {
+    const card = document.createElement("div");
+    card.style.cssText =
+      "background:white;padding:10px;border-radius:8px;";
+
+    const image = document.createElement("img");
+    image.src = product.image;
+    image.alt = product.name;
+    image.style.cssText = "width:100%;height:180px;object-fit:contain;";
+
+    const title = document.createElement("h3");
+    title.textContent = product.name;
+
+    const price = document.createElement("p");
+    price.textContent = "₹" + product.price;
+
+    card.append(image, title, price);
+    container.appendChild(card);
+  });
+}
+
+showProducts();
+</script>
 </body>
 </html>
